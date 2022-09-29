@@ -107,9 +107,46 @@ myisort l
     | otherwise = [head l]
 
 
--- --2.5
+--2.5
 
--- myminimum :: Ord a => [a] -> a
--- myminimum l
---     | null l = error "empty list"
---     | head l > l !! 1 = myminimum (drop 1 l)
+-- a)
+
+myminimum :: Ord a => [a] -> a
+myminimum l
+    | length l == 1 = head l
+    | null l = error "empty list"
+    | head l >= l !! 1 = myminimum (drop 1 l)
+    | otherwise = myminimum (head l: drop 2 l)
+
+
+-- b)
+
+mydelete :: Eq a => a -> [a] -> [a]
+mydelete c l
+    | null l = []
+    | head l == c = drop 1 l
+    | otherwise = head l : mydelete c (drop 1 l)
+
+
+-- c)
+
+myssort :: Ord a => [a] -> [a]
+myssort l
+    | null l = l
+    | otherwise = myminimum l : myssort (mydelete (myminimum l) l)
+
+
+--2.6
+
+
+mysoma :: (Num a, Enum a) => a -> a -> a
+mysoma a b = sum [x ^ 2 | x <- [a..b]]
+
+
+--2.7 
+
+-- myele n 0 = 1
+-- myele n b = n * myele n b-1
+
+-- myapprox :: Int -> Double
+-- myapprox n = [(-1)^k | k <- [1..n]]
