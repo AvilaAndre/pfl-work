@@ -1,3 +1,6 @@
+import Data.Char
+import GHC.Float (sqrtFloat)
+
 --2.1
 
 -- a)
@@ -145,8 +148,120 @@ mysoma a b = sum [x ^ 2 | x <- [a..b]]
 
 --2.7 
 
--- myele n 0 = 1
--- myele n b = n * myele n b-1
+myapprox :: Int -> Double
+myapprox n = sum [((-1)^k) / fromIntegral (2*k+1) | k <- [0.. n]]
 
--- myapprox :: Int -> Double
--- myapprox n = [(-1)^k | k <- [1..n]]
+--2.8
+
+dotprod :: [Float] -> [Float] -> Float
+dotprod x y = sum [a * b | (a, b) <- zip x y]
+
+--2.9
+
+divprop :: Integer -> [Integer]
+divprop a = [x | x <- [1 .. a-1], a `mod` x == 0 ]
+
+--2.10
+
+perfeitos :: Integer -> [Integer]
+perfeitos a = [x | x <- [1 .. a-1], sum (divprop x) == x ]
+
+--2.11
+
+pitagoricos :: Integer -> [(Integer, Integer, Integer)]
+pitagoricos a = [(x, y, z) | x <- [1..a], y <- [1..a], z <- [1..a], (x^2 + y^2) == z^2]
+
+--2.12 
+
+primo :: Integer -> Bool
+primo a = (length (divprop a) + 1) == 2
+
+--2.13
+
+mersennes :: [Int]
+mersennes = [ n | n <- [0 .. 30], primo (2^n - 1)]
+
+--2.14
+
+binom :: Integer -> Integer -> Integer
+binom n k = product [1 .. n] `div` (product [1 .. k] * product [1 .. (n - k)])
+
+pascal :: Integer -> [[Integer]]
+pascal n = [[binom y x |x <- [0..y]] | y <- [0..n]]
+
+--2.15
+
+cifrarLetra :: Int -> Char -> Char
+cifrarLetra a l
+        | l == ' ' = ' '
+        | isUpper l = chr (((ord l - ord 'A') + a) `mod` 26 + ord 'A')
+        | isLower l = chr (((ord l - ord 'a') + a) `mod` 26 + ord 'a')
+        | otherwise = l
+
+cifrar :: Int -> String -> String
+cifrar a b = [ cifrarLetra a x | x <- b]
+
+--2.16
+
+comconcat :: [[a]] -> [a]
+comconcat = foldl ((++)) []
+
+comreplicate :: Int -> a -> [a]
+comreplicate n a = [a |x <- [1 .. n]]
+
+comunequal :: [a] -> Int -> [a]
+comunequal l idx = [head (drop x l) | x <- [0 .. length l], x == idx]
+
+--2.17
+
+forte :: String -> Bool
+forte a = length a > 7
+    && not (null ([True |x <- a, isUpper x]))
+    && not (null ([True |x <- a, isLower x]))
+    && not (null ([True |x <- a, isDigit x]))
+
+--2.18
+
+-- a)
+
+mindiv :: Int -> Int
+mindiv n = head [p |p <- [ floor (sqrt (fromIntegral n)) .. n + 1], q <- [0 .. floor (sqrt (fromIntegral n))], p* q == n ]
+
+-- b)
+
+betterprimo :: Int -> Bool
+betterprimo n = mindiv n == n
+
+--2.19
+
+mynub :: Eq a => [a] -> [a]
+mynub l = [l !! x | x <- [0 .. length l - 1], foldl (\tot cur -> tot && (cur /= l !! x)) True (take x l) ]
+
+
+--2.20
+
+mytranspose :: [[Int]] -> [[Int]]
+mytranspose mat =  [ concat [[tot !! y] | y <- [x , (x + length (head mat))  .. length (head mat) * length mat -1] ] | x <- [0..2]]
+                where tot = concat mat
+
+--2.21
+
+algarismos :: Int -> [Int]
+algarismos n | n > 0 = algarismos (n `div` 10) ++ [n `mod` 10] 
+algarismos n = []
+
+--2.22
+
+toBits :: Int -> [Int]
+toBits n | n > 0 = toBits (n `div` 2) ++ [n `mod` 2] 
+toBits n = []
+
+--2.23
+
+fromBits :: [Int] -> Int
+fromBits [] = 0
+fromBits l | head l == 0 = fromBits (drop 1 l)
+fromBits l = 2^ (length l - 1) + fromBits (drop 1 l)
+
+--2.24 
+

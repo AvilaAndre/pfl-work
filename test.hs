@@ -22,6 +22,10 @@ factorial 0 = 1
 factorial n = n * factorial (n-1)
 
 
+preencher n xs = take n (xs ++ repeat ' ')
+
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+
 main :: IO ()
 main = do
     putStrLn "Hello, world!"
@@ -46,3 +50,10 @@ main = do
     print (tail [1, 2, 3, 4])
 
     print (factorial 5)
+    print (map factorial [1, 3, 4, 5, 6])
+    -- WRITE ON CONSOLE -- takeWhile (\n -> n * n < 10) [1..5]
+    print ( foldl (+) 0 [1, 2, 3, 4, 5])
+    print ( foldr (+) 0 [1, 2, 3, 4, 5])
+
+    print ( take 10 (iterate (2*) 1))
+
