@@ -1,3 +1,5 @@
+import Data.Char
+
 --3
 
 --3.1
@@ -55,5 +57,56 @@ mymaximum2 l = foldr1 max l
 
 --3.6
 
-mdc b a | b == 0 = a 
-mdc b a = a `mod` b 
+mdc :: Int -> Int -> Int
+mdc a b = fst (until (\(a,b) -> b == 0) (\(a,b) -> (b,a`mod`b)) (a,b))
+
+--3.5
+
+
+-- a)
+myplusplus :: [a] -> [a] -> [a]
+myplusplus a b = foldr(\cur new -> (cur : new)) b a
+
+-- b)
+
+myconcat :: [[a]] -> [a]
+myconcat l = foldr (\cur new -> myplusplus cur new) [] l
+
+-- c)
+
+myreverse1 :: [a] -> [a]
+myreverse1 l = foldr(\cur new -> myplusplus new [cur] ) [] l
+
+-- d)
+
+myreverse2 :: [a] -> [a]
+myreverse2 l = foldl(\cur new -> new : cur) [] l
+
+-- e)
+myelem :: Eq a => a -> [a] -> Bool
+myelem a = any (a==)
+
+--3.8
+
+-- a) I DO NOT RECOMMEND THIS SOLUTION, SOMEONE MUST KNOW HOW TO DO THIS CORRECTLY
+
+getpalavra :: String -> Int -> Int
+getpalavra str count | null (drop count str) = count
+getpalavra str count | head (drop count str) == ' ' = count + 1
+getpalavra str count = getpalavra str (count + 1)
+
+wordpairs :: [Int] -> [[Int]]
+wordpairs l = filter (\(x:xs) -> x /= (head xs)) (filter (\x -> length x > 1) (pairs l))
+
+decomposeword :: String -> [Int]
+decomposeword txt = take (length txt) (iterate (getpalavra txt) 0)
+
+pairs :: [a] -> [[a]]
+pairs (_: []) = [[]]
+pairs a = [(head a : [head (drop 1 a)])]++ pairs (drop 1 a)
+
+palavras :: String -> [String]
+palavras txt = [take (head xs - 1) (drop x txt) | (x:xs) <- (wordpairs (decomposeword txt) ), (head xs - 1) /= x]
+
+
+
