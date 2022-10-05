@@ -26,6 +26,25 @@ preencher n xs = take n (xs ++ repeat ' ')
 
 fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 
+
+data Figura = Circ Float
+            | Rect Float Float
+              deriving (Eq, Show)
+
+data Maybe a = Nothing | Just a -- do prelúdio padrão
+
+data Produto = Produto Nome Stock PrecoCusto PrecoVenda deriving (Show)
+
+type Nome = String
+type Stock = Int
+type PrecoCusto = Double
+type PrecoVenda = Double
+
+inventario :: [Produto]
+inventario  = [Produto "Haskell for Dummies" 200 10.0 15.0, Produto "Produto2" 100 15.0 25.0]
+
+
+
 main :: IO ()
 main = do
     putStrLn "Hello, world!"
