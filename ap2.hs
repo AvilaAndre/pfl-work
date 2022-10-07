@@ -265,3 +265,17 @@ fromBits l = 2^ (length l - 1) + fromBits (drop 1 l)
 
 --2.24 
 
+-- a)
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge a b | null a && null b = []
+merge a b | null a && not (null b) = head b : merge a (drop 1 b)
+merge a b | null b && not (null a) = head a : merge (drop 1 a) b
+merge a b | head a > head b = head b : merge a (drop 1 b)
+merge a b | head a <= head b = head a : merge (drop 1 a) b
+
+-- b)
+
+msort :: Ord a => [a] -> [a]
+msort l | length l < 2 = l
+msort l = merge (msort (take (length l `div` 2) l)) (msort (drop (length l `div` 2) l))
