@@ -47,13 +47,12 @@ myminimum :: Ord a => [a] -> a
 myminimum l = foldr1 min l
 
 -- b)
---myfoldr1 :: Foldable t => (a -> a -> a) -> t a -> a
-myfoldr1 f a | null a = error "empty list"
-myfoldr1 f l = foldr f l []
 
-mymaximum2 l = foldr1 max l 
+myfoldr1 :: (a -> a -> a)  -> [a] -> a
+myfoldr1 f l = foldr f (last l) (init l) 
 
--- I'm not understanding this one
+myfoldl1 :: (a -> a -> a)  -> [a] -> a
+myfoldl1 f l = foldl f (head l) (tail l) 
 
 --3.6
 

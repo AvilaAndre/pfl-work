@@ -44,6 +44,9 @@ myconcat' :: [[a]] -> [a]
 myconcat' [] = []
 myconcat' (x:xs) = x ++ myconcat' xs
 
+-- myconcat :: [[a]] -> [a]
+-- myconcat l = [y | x <- l, y <- x] --list comprehension solution
+
 -- d)
 
 myreplicate:: Int -> a -> [a]
