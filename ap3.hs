@@ -108,5 +108,12 @@ pairs a = [(head a : [head (drop 1 a)])]++ pairs (drop 1 a)
 palavras :: String -> [String]
 palavras txt = [take (head xs - 1) (drop x txt) | (x:xs) <- (wordpairs (decomposeword txt) ), (head xs - 1) /= x]
 
+-- b)
 
+despalavras :: [String] -> String
+despalavras l = head l ++ foldl (\cur nex -> cur ++ " " ++ nex) "" (drop 1 l)
 
+--3.9
+
+myscanl f s l | null l = [s]
+myscanl f s l = s : myscanl f (f (head l) s) (drop 1 l)
