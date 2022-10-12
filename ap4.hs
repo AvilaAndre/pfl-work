@@ -69,3 +69,10 @@ mais_dir :: Arv a -> a
 mais_dir (No a left Vazia) = a
 mais_dir (No a left right) = mais_dir right
 
+--b)
+--Input example: listar (remover 19 (No 8 (No 5 (No 2 Vazia Vazia) (No 7 Vazia Vazia)) (No 14 (No 10 Vazia Vazia) (No 19 (No 12 Vazia (No 18 Vazia Vazia)) (No 24 Vazia Vazia)))))
+remover :: Ord a => a -> Arv a -> Arv a
+remover num (No a left right) | a == num = Vazia
+remover num (No a Vazia Vazia) = (No a Vazia Vazia)
+remover num (No a left right) | num <= (mais_dir left) = (No a (remover num left) right)
+remover num (No a left right) = (No a left (remover num right))
