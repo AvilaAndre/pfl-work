@@ -76,3 +76,86 @@ remover num (No a left right) | a == num = Vazia
 remover num (No a Vazia Vazia) = (No a Vazia Vazia)
 remover num (No a left right) | num <= (mais_dir left) = (No a (remover num left) right)
 remover num (No a left right) = (No a left (remover num right))
+
+
+--4.7
+--Input example: quatrosete
+
+quatrosete :: IO()
+quatrosete = do
+        input <- getLine
+        putStrLn (reverse input)
+
+--4.8
+--Input example: adivinha "sopa"
+
+tentativa :: Int -> String -> String -> IO()
+tentativa try secret progress
+        | secret == progress = do
+                putStrLn progress
+                putStrLn ("Congrats you found " ++ secret ++ " it in " ++ (show try) ++ " tries")
+        | otherwise = do
+                putStrLn progress
+                putStr "Input: "
+                input <- getChar
+                putStr "\n"
+                tentativa (try + 1) secret [if ((secret !! idx) == input || (progress !! idx) /= '-') then (secret !! idx) else '-' | idx <- [0 .. ((length secret) - 1)]]
+
+adivinha :: String -> IO()
+adivinha secret = do
+        tentativa 0 secret ['-'| x<-[0..((length secret)-1)]]
+
+
+--4.9
+--Input example: elefantes 5
+
+elefantesAux :: Int -> Int -> IO()
+elefantesAux now obj 
+        | now == obj = do
+                putStrLn ("Se " ++ (show (now-1)) ++ " elefantes incomodam muita gente,")
+                putStrLn ((show now) ++ " elefantes incomodam muito mais!")
+        | otherwise = do
+                putStrLn ("Se " ++ (show (now-1)) ++ " elefantes incomodam muita gente,")
+                putStrLn ((show now) ++ " elefantes incomodam muito mais!")
+                elefantesAux (now+1) obj
+
+elefantes :: Int -> IO()
+elefantes num 
+        | num > 2 = do
+                elefantesAux 3 num
+        | otherwise = putStrLn "Error"
+
+--4.10
+--Input example: nim
+
+nimLogic :: [Int] -> IO()
+nimLogic queues 
+        | (length [True | x <- [0 .. 4], (queues !! x) == 0] == 5) = do
+                putStrLn "Game Finished!"
+        | otherwise = do
+                putStrLn ("1:  " ++ (concat ["* "| x<- [1.. (queues !! 0)]]))
+                putStrLn ("2:  " ++ (concat ["* "| x<- [1.. (queues !! 1)]]))
+                putStrLn ("3:  " ++ (concat ["* "| x<- [1.. (queues !! 2)]]))
+                putStrLn ("4:  " ++ (concat ["* "| x<- [1.. (queues !! 3)]]))
+                putStrLn ("5:  " ++ (concat ["* "| x<- [1.. (queues !! 4)]]))
+                putStr "Remove from which column: "
+                col <- getChar
+                putStr "\n"
+                putStr "How many do you wish to remove: "
+                qtd <- getChar
+                putStr "\n"
+                if ((read [col]) < 1 || (read [col]) > 5) then ()
+                        nimLogic queues
+                else if ((read [qtd]) <= 0 || (read [qtd]) > (queues !! ((read [col])-1))) then
+                        nimLogic queues
+                else
+                        nimLogic [if (x == ((read [col])-1)) then (queues !! ((read [col])-1)) - (read [qtd]) else queues !! x|x <- [0 .. 4]]
+
+
+
+nim :: IO()
+nim = do
+        nimLogic [5, 4, 3, 2, 1]
+
+--4.11
+-- Doesn't look that fun tbh, its pretty much ap2.hs 2.15 exercise 
