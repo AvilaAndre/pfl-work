@@ -1,17 +1,28 @@
-female(grace). male(frank).
+male(frank).
 male(phil).
-female(dede). male(jay).
-female(claire). male(mitchell).
-female(gloria). male(javier).
-male(joe). male(manny).
-female(barb). male(merle).
-male(cameron). female(pameron).
+male(jay).
+male(mitchell).
+male(javier).
+male(joe).
+male(manny).
+male(merle).
+male(cameron).
 male(bo).
 male(calhoun).
-female(haley). female(alex). male(luke).
-female(lily). male(rexford).
+male(luke).
+male(rexford).
 male(dylan).
-male(george). female(poppy).
+male(george).
+female(grace).
+female(dede).
+female(claire).
+female(gloria).
+female(barb).
+female(pameron).
+female(haley).
+female(alex).
+female(lily).
+female(poppy).
 
 parent(grace, phil). parent(frank, phil).
 parent(dede, claire). parent(dede, mitchell). parent(jay, claire). parent(jay, mitchell).
