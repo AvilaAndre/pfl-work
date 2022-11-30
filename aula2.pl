@@ -32,3 +32,21 @@ test(A, B, C) :- C is (A rem B).
 
 and(L,R) :- L,R.
 or(L,R) :- L;R.
+
+%5
+ %a)
+list_size([], 0).
+list_size([_ListHead | ListTail], Size):-
+    %Tail is ListTail,
+    %Size1 is Size + 1,
+    list_size(ListTail, Size1),
+    Size is Size1 + 1.
+
+ %b)
+
+list_sum([], 0).
+list_sum([ListHead | ListTail], Size):-
+    %Tail is ListTail,
+    %Size1 is Size + 1,
+    list_sum(ListTail, Size1),
+    Size is Size1 + ListHead.
