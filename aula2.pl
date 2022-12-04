@@ -50,3 +50,10 @@ list_sum([ListHead | ListTail], Size):-
     %Size1 is Size + 1,
     list_sum(ListTail, Size1),
     Size is Size1 + ListHead.
+
+ %c)
+
+list_prod([], 1).
+list_prod([ListHead | ListTail], Prod):-
+    list_prod(ListTail, Prod1),
+    Prod is ListHead * Prod1.
