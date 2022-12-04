@@ -57,3 +57,10 @@ list_prod([], 1).
 list_prod([ListHead | ListTail], Prod):-
     list_prod(ListTail, Prod1),
     Prod is ListHead * Prod1.
+
+ %d)
+
+inner_product([], [], 0).
+inner_product([List1Head | List1Tail], [List2Head | List2Tail], Result):-
+    inner_product(List1Tail, List2Tail, Result1),
+    Result is List1Head * List2Head + Result1.
