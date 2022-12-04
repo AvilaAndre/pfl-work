@@ -64,3 +64,16 @@ inner_product([], [], 0).
 inner_product([List1Head | List1Tail], [List2Head | List2Tail], Result):-
     inner_product(List1Tail, List2Tail, Result1),
     Result is List1Head * List2Head + Result1.
+
+ %e)
+
+count(_Elem, [], 0).
+count(Elem, [ListHead | ListTail], N):-
+    Elem \== ListHead,
+    count(Elem, ListTail, N1),
+    N is N1.
+
+count(Elem, [ListHead | ListTail], N):-
+    Elem == ListHead,
+    count(Elem, ListTail, N1),
+    N is N1 + 1.
