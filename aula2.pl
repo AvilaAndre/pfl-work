@@ -223,3 +223,13 @@ list_backwards([List1Head | List1Tail], List2):-
     lastElem(List2, List21 ,LastElem),
     LastElem == List1Head,
     list_perm(List1Tail, List21).
+
+
+%7
+
+ %a
+
+list_append(List1, List2, List3):-
+    append(List1, List2, List3).
+
+
