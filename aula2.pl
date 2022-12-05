@@ -77,3 +77,13 @@ count(Elem, [ListHead | ListTail], N):-
     Elem == ListHead,
     count(Elem, ListTail, N1),
     N is N1 + 1.
+
+%6
+
+ %a
+
+invert([], _List).
+invert([List1Head | List1Tail], List2):-
+    invert(List1Tail, List21),
+    append(List21, [List1Head], List2).
+
