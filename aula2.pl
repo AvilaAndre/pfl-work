@@ -135,7 +135,27 @@ del_dups([List1Head | List1Tail], List2):-
     append([List1Head], List22, List2).
 
  %f
- 
+
+find_one(Elem, [List1Head | List1Tail]):-
+    Elem \== List1Head,
+    find_one(Elem, List1Tail).
+
+find_one(Elem, [List1Head | _List1Tail]):-
+    Elem == List1Head.
+
+
+list_perm([], []).
+
+list_perm([List1Head | List1Tail], List2):-
+    find_one(List1Head, List2),
+    del_one(List1Head, List2, List21),
+    list_perm(List1Tail, List21).
+
+
+
+
+%% THIS IS NOT PART OF THE EXERCISE
+
 lastElem([Elem], FinalList, Elem):-
     FinalList = [].
 
