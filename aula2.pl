@@ -272,8 +272,23 @@ list_from_to_step(Inf, Step, Sup, List):-
 %10
 
  %a
+
 is_ordered([_Single]).
 
 is_ordered([ListA, ListB | ListTail]):-
     ListA < ListB,
     is_ordered([ListB | ListTail]).
+
+ %b
+
+insert_ordered(Value, [],  List2):-
+    List2 = [Value].
+
+insert_ordered(Value, [List1Head | List1Tail], List2):-
+    List1Head >= Value,
+    append([Value, List1Head], List1Tail, List2).
+
+insert_ordered(Value, [List1Head | List1Tail], List2):-
+    List1Head < Value,
+    insert_ordered(Value, List1Tail, List21),
+    append([List1Head], List21, List2).
