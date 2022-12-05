@@ -133,3 +133,19 @@ del_dups([List1Head | List1Tail], List2):-
     del_all(List1Head, List1Tail, List21),
     del_dups(List21, List22),
     append([List1Head], List22, List2).
+
+ %f
+ 
+lastElem([Elem], FinalList, Elem):-
+    FinalList = [].
+
+lastElem([ListHead | ListTail], FinalList, LastElem):-
+    lastElem(ListTail, FinalList2, LastElem),
+    append([ListHead], FinalList2, FinalList).
+
+list_backwards([], []).
+
+list_backwards([List1Head | List1Tail], List2):-
+    lastElem(List2, List21 ,LastElem),
+    LastElem == List1Head,
+    list_perm(List1Tail, List21).
