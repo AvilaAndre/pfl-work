@@ -151,7 +151,16 @@ list_perm([List1Head | List1Tail], List2):-
     del_one(List1Head, List2, List21),
     list_perm(List1Tail, List21).
 
+ %g
 
+replicate(0, _Elem, List):-
+    List = [].
+
+replicate(Amount, Elem, List):-
+    Amount > 0,
+    Amount1 is Amount - 1,
+    replicate(Amount1, Elem, List1),
+    append([Elem], List1, List).
 
 
 %% THIS IS NOT PART OF THE EXERCISE
