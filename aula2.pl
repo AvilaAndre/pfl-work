@@ -256,3 +256,15 @@ list_from_to(Inf, Sup, List):-
     Sup1 is Sup - 1,
     list_from_to(Inf, Sup1, List1),
     append(List1, [Sup], List).
+
+ %c
+
+list_from_to_step(Inf, _Step, Sup, List):-
+    Inf > Sup,
+    List = [].
+
+list_from_to_step(Inf, Step, Sup, List):-
+    Sup >= Inf,
+    Inf1 is Inf + Step,
+    list_from_to_step(Inf1, Step, Sup, List1),
+    append([Inf], List1, List).
