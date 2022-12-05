@@ -292,3 +292,12 @@ insert_ordered(Value, [List1Head | List1Tail], List2):-
     List1Head < Value,
     insert_ordered(Value, List1Tail, List21),
     append([List1Head], List21, List2).
+
+ %c
+
+insert_sort([], List):-
+    List = [].
+
+insert_sort([ListHead | ListTail], List):-
+    insert_sort(ListTail, List1),
+    insert_ordered(ListHead, List1, List).
