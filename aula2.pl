@@ -163,6 +163,16 @@ replicate(Amount, Elem, List):-
     append([Elem], List1, List).
 
 
+ %h
+
+interperse(_Elem, [List1Last] , List2):-
+    append([List1Last], [], List2).
+
+interperse(Elem, [List1Head | List1Tail] , List2):-
+    interperse(Elem, List1Tail, List21),
+    append([List1Head, Elem], List21, List2).
+
+
 %% THIS IS NOT PART OF THE EXERCISE
 
 lastElem([Elem], FinalList, Elem):-
