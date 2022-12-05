@@ -172,6 +172,16 @@ interperse(Elem, [List1Head | List1Tail] , List2):-
     interperse(Elem, List1Tail, List21),
     append([List1Head, Elem], List21, List2).
 
+ %i
+
+insert_elem(0, [List1Head | List1Tail], Elem, List2):-
+    append([Elem, List1Head], List1Tail, List2).
+
+insert_elem(Index, [List1Head | List1Tail], Elem, List2):-
+    Index > 0,
+    Index1 is Index - 1,
+    insert_elem(Index1, List1Tail, Elem, List21),
+    append([List1Head], List21, List2).
 
 %% THIS IS NOT PART OF THE EXERCISE
 
