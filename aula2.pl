@@ -268,3 +268,12 @@ list_from_to_step(Inf, Step, Sup, List):-
     Inf1 is Inf + Step,
     list_from_to_step(Inf1, Step, Sup, List1),
     append([Inf], List1, List).
+
+%10
+
+ %a
+is_ordered([_Single]).
+
+is_ordered([ListA, ListB | ListTail]):-
+    ListA < ListB,
+    is_ordered([ListB | ListTail]).
