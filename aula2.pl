@@ -115,3 +115,11 @@ del_all(Elem, [List1Head | List1Tail], List2):-
     Elem == List1Head,
     del_all(Elem, List1Tail, List2).
 
+ %d
+
+del_all_list([], List1, List2):-
+    List1 = List2.
+
+del_all_list([ListElemsHead | ListElemsTail], List1, List2):-
+    del_all(ListElemsHead, List1, List21),
+    del_all_list(ListElemsTail, List21, List2).
