@@ -196,6 +196,18 @@ delete_elem(Index, [List1Head | List1Tail], Elem, List2):-
     delete_elem(Index1, List1Tail, Elem, List21),
     append([List1Head], List21, List2).
 
+ %k
+
+replace_elem([List1Head | List1Tail], 0, Old, New, List2):-
+    Old is List1Head,
+    append([New], List1Tail, List2).
+
+replace_elem([List1Head | List1Tail], Index, Old, New, List2):-
+    Index > 0,
+    Index1 is Index - 1,
+    replace_elem(List1Tail, Index1, Old, New, List21),
+    append([List1Head], List21, List2).
+
 %% THIS IS NOT PART OF THE EXERCISE
 
 lastElem([Elem], FinalList, Elem):-
