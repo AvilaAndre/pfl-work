@@ -233,3 +233,15 @@ list_append(List1, List2, List3):-
     append(List1, List2, List3).
 
 
+%8
+
+ %a
+
+list_to(0, List):-
+    List = [].
+
+list_to(N, List):-
+    N > 0,
+    N1 is N - 1,
+    list_to(N1, List1),
+    append(List1, [N], List).
