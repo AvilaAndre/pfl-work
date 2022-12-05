@@ -245,3 +245,14 @@ list_to(N, List):-
     N1 is N - 1,
     list_to(N1, List1),
     append(List1, [N], List).
+
+ %b
+
+list_from_to(Inf, Inf, List):-
+    List = [Inf].
+
+list_from_to(Inf, Sup, List):-
+    Sup > Inf,
+    Sup1 is Sup - 1,
+    list_from_to(Inf, Sup1, List1),
+    append(List1, [Sup], List).
