@@ -126,17 +126,10 @@ del_all_list([ListElemsHead | ListElemsTail], List1, List2):-
 
  %e
 
- %b
-
-del_dups(_Elem, [], List2):-
+del_dups([], List2):-
     List2 = [].
 
-del_dups(Elem, [List1Head | List1Tail], List2):-
-    Elem \== List1Head,
-    del_dups(Elem, List1Tail, List21),
-    append([List1Head], List21, List2).
-
-del_dups(Elem, [List1Head | List1Tail], List2):-
-    Elem == List1Head,
-    del_all(Elem, List1Tail, List21),
-    append([List1Head], List21, List2).
+del_dups([List1Head | List1Tail], List2):-
+    del_all(List1Head, List1Tail, List21),
+    del_dups(List21, List22),
+    append([List1Head], List22, List2).
