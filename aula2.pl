@@ -183,6 +183,19 @@ insert_elem(Index, [List1Head | List1Tail], Elem, List2):-
     insert_elem(Index1, List1Tail, Elem, List21),
     append([List1Head], List21, List2).
 
+
+ %j
+
+delete_elem(0, [List1Head | List1Tail], Elem, List2):-
+    Elem is List1Head,
+    List2 = List1Tail.
+
+delete_elem(Index, [List1Head | List1Tail], Elem, List2):-
+    Index > 0,
+    Index1 is Index - 1,
+    delete_elem(Index1, List1Tail, Elem, List21),
+    append([List1Head], List21, List2).
+
 %% THIS IS NOT PART OF THE EXERCISE
 
 lastElem([Elem], FinalList, Elem):-
