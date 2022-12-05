@@ -87,3 +87,17 @@ invert([List1Head | List1Tail], List2):-
     invert(List1Tail, List21),
     append(List21, [List1Head], List2).
 
+ %b
+
+del_one(_Elem, [], List2):-
+    List2 = [].
+
+del_one(Elem, [List1Head | List1Tail], List2):-
+    Elem \== List1Head,
+    del_one(Elem, List1Tail, List21),
+    append([List1Head], List21, List2).
+
+del_one(Elem, [List1Head | List1Tail], List2):-
+    Elem == List1Head,
+    List2 = List1Tail.
+
