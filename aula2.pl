@@ -301,3 +301,32 @@ insert_sort([], List):-
 insert_sort([ListHead | ListTail], List):-
     insert_sort(ListTail, List1),
     insert_ordered(ListHead, List1, List).
+
+%11
+
+%    n!
+% --------
+% k!(n-k)!
+
+pascalrow(_N, -1, Line):-
+    Line = [].
+
+pascalrow(N, K, Line):-
+    K1 is K - 1,
+    factorial(N, ValueN),
+    factorial(K, ValueK),
+    NminusK is N - K,
+    factorial(NminusK, ValueNminusK),
+    ValueMul is ValueK * ValueNminusK,
+    Value is ValueN / ValueMul,
+    pascalrow(N, K1, Line1),
+    append([Value], Line1, Line).
+
+pascal(0, Lines):-
+    Lines = [[1]].
+
+pascal(N, Lines):-
+    N1 is N - 1,
+    pascalrow(N, N, Line),
+    pascal(N1, Lines1),
+    append(Lines1, [Line], Lines).
