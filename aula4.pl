@@ -12,11 +12,21 @@ print_stream([WordHead | WordTail]):-
 
 add_person/o(Gender, Name):-
     Gender == male,
+    male(Name),
+    write('Already exists').
+
+add_person/o(Gender, Name):-
+    Gender == male,
     assert(male(Name)).
 
 add_person/o(Gender, Name):-
     Gender == female,
-    assert(male(Name)).
+    female(Name),
+    write('Already exists').
+
+add_person/o(Gender, Name):-
+    Gender == female,
+    assert(female(Name)).
 
  %b
 
