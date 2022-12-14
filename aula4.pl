@@ -17,7 +17,7 @@ add_person:-
 add_person:-
     write('Person\'s gender: '),
     read(Gender),
-    Gender == male,
+    Gender == female,
     write('Person\'s name: '),
     read(Name),
     \+female(Name),
@@ -38,9 +38,8 @@ add_parents(Person):-
 remove_person:-
     write('Person\'s name: '),
     read(Person),
-    retract(female(Person));
-    write(Person),
-    retract(male(Person)).
+    (retract(female(Person));
+    retract(male(Person))).
 
 % remove_person:-
 %     write('Person\'s name: '),
