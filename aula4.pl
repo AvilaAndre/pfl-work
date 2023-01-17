@@ -1,5 +1,5 @@
 :-dynamic male/1, female/1, parent/2.
-
+:-[utils].
 %1
 
 
@@ -83,3 +83,26 @@ get_all_nodes(ListOfAirports):-
     setof(Destination, (Origin, Company, Code, Hour, Duration)^flight(Origin, Destination, Company, Code, Hour, Duration), L2),
     append(L1, L2, L3),
     sort(L3, ListOfAirports).
+
+ %b
+
+most_diversified_count([], _Company, 0).
+
+most_diversified_count([CompanyListHead | CompanyListTail], Company, Count):-
+    most_diversified_count(CompanyListTail, Company, Count),
+    setof(_Destination, (_Origin, CompanyListHead, _Code, _Hour, _Duration)^
+        flight(_Origin, _Destination, CompanyListHead, _Code, _Hour, _Duration), DestinationList),
+    array_size(DestinationList, NewCount2),
+    Count > NewCount2,
+    !.
+
+most_diversified_count([Company | _CompanyListTail], Company, Count):-
+    setof(_Destination, (_Origin, Company, _Code, _Hour, _Duration)^
+        flight(_Origin, _Destination, Company, _Code, _Hour, _Duration), DestinationList),
+    array_size(DestinationList, Count),
+    !.
+
+most_diversified(Company):-
+    setof(_Company, (_Origin, _Destination, _Code, _Hour, _Duration)^
+        flight(_Origin, _Destination, _Company, _Code, _Hour, _Duration), CompanyList),
+    most_diversified_count(CompanyList, Company, _Count).
